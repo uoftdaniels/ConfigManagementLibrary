@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <RootNamespace>Daniels.Config</RootNamespace>
+    <Authors>IP ConnectX</Authors>
+    <Description>Daniels Configuration Management library</Description>
+    <PackageProjectUrl>https://github.com/uoftdaniels/ConfigManagementLibrary/ConfigManagementLibrary</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/uoftdaniels/ConfigManagementLibrary</RepositoryUrl>
+    <UserSecretsId>6b9ff673-e638-4bae-b8e3-751fa9463345</UserSecretsId>
+    <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.*</AssemblyVersion>
+    <Deterministic>false</Deterministic>
+    <AssemblyName>Daniels.Config</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>ConfigManagementLibrary.Tests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>	
+	
+  <ItemGroup>
+    <Compile Remove="Properties\**" />
+    <EmbeddedResource Remove="Properties\**" />
+    <None Remove="Properties\**" />
+  </ItemGroup>	
+	
+  <ItemGroup>
+    <Compile Remove="ConfigManagementLibrary.3series.cs" />
+  </ItemGroup>	
+	
+  <ItemGroup>
+    <None Remove="ConfigManagementLibrary.3series.projectinfo" />
+  </ItemGroup>	
+	
+  <ItemGroup>
+    <None Include="ConfigManagementLibrary.3series.cs" />
+  </ItemGroup>	
+	
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>	
+	
+</Project>

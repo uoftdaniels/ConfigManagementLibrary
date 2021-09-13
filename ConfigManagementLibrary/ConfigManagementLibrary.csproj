@@ -13,7 +13,7 @@
     <Version>1.0.0</Version>
     <AssemblyVersion>1.0.*</AssemblyVersion>
     <Deterministic>false</Deterministic>
-    <AssemblyName>Daniels.Config</AssemblyName>
+    <AssemblyName>ConfigManagementLibrary</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,8 +23,11 @@
   </ItemGroup>	
 	
   <ItemGroup>
+    <Compile Remove="Newtonsoft.Json.Linq\**" />
     <Compile Remove="Properties\**" />
+    <EmbeddedResource Remove="Newtonsoft.Json.Linq\**" />
     <EmbeddedResource Remove="Properties\**" />
+    <None Remove="Newtonsoft.Json.Linq\**" />
     <None Remove="Properties\**" />
   </ItemGroup>	
 	
@@ -33,7 +36,16 @@
   </ItemGroup>	
 	
   <ItemGroup>
+    <None Remove="ConfigManagementLibrary.3series.csproj_pro" />
     <None Remove="ConfigManagementLibrary.3series.projectinfo" />
+    <None Remove="ConfigManagementLibrary.json" />
+    <None Remove="ConfigManagementLibrary.projectinfo" />
+  </ItemGroup>	
+	
+  <ItemGroup>
+    <Content Include="ConfigManagementLibrary.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>	
 	
   <ItemGroup>

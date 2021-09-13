@@ -4,12 +4,12 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{5EAC9D2D-612C-49D2-9D45-A581410367D9}</ProjectGuid>
+    <ProjectGuid>{EF262098-B944-4DF3-BE6C-F3FC384F7849}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Daniels.Accounts</RootNamespace>
-    <AssemblyName>DanielsAccountsLibrary.3series</AssemblyName>
-    <ProjectTypeGuids>{0B4745B0-194B-4BB6-8E21-E9057CA92300};{4D628B5B-2FBC-4AA6-8C16-197242AEB884};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <RootNamespace>Daniels.Config</RootNamespace>
+    <AssemblyName>ConfigManagementLibrary</AssemblyName>
+    <ProjectTypeGuids>{0B4745B0-194B-4BB6-8E21-E9057CA92500};{4D628B5B-2FBC-4AA6-8C16-197242AEB884};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <PlatformFamilyName>WindowsCE</PlatformFamilyName>
     <PlatformID>E2BECB1F-8C8C-41ba-B736-9BE7D946A398</PlatformID>
     <OSVersion>5.0</OSVersion>
@@ -60,130 +60,24 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\ProgramData\Crestron\SDK\SimplSharpNewtonsoft.dll</HintPath>
     </Reference>
-    <Reference Include="SimplSharpPro, Version=1.5.3.17, Culture=neutral, PublicKeyToken=1099c178b3b54c3b, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\ProgramData\Crestron\SDK\SimplSharpPro.exe</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="SimplSharpReflectionInterface, Version=1.0.5583.25238, Culture=neutral, PublicKeyToken=1099c178b3b54c3b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\ProgramData\Crestron\SDK\SimplSharpReflectionInterface.dll</HintPath>
-    </Reference>
-    <Reference Include="SSCoreExtensionLibrary, Version=1.0.0.29248, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\OneDrive - University of Toronto\Documents\Crestron\oznetmaster\DLLs\SSCoreExtensionLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="SSCoreResourceLibrary, Version=1.0.0.29465, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\OneDrive - University of Toronto\Documents\Crestron\oznetmaster\DLLs\SSCoreResourceLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="SSCoreTupleLibrary, Version=1.0.0.29157, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\OneDrive - University of Toronto\Documents\Crestron\oznetmaster\DLLs\SSCoreTupleLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="SSCoreXmlLinqLibrary, Version=1.0.0.29358, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\OneDrive - University of Toronto\Documents\Crestron\oznetmaster\DLLs\SSCoreXmlLinqLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="SSCoreXmlReaderWriterLibrary, Version=1.0.0.29268, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\OneDrive - University of Toronto\Documents\Crestron\oznetmaster\DLLs\SSCoreXmlReaderWriterLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="SSharpBouncyCastleCryptoLibrary, Version=1.8.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\OneDrive - University of Toronto\Documents\Crestron\oznetmaster\DLLs\SSharpBouncyCastleCryptoLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="SSharpBouncyCastleCryptoSslStreamLibrary, Version=1.0.0.29320, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\OneDrive - University of Toronto\Documents\Crestron\oznetmaster\DLLs\SSharpBouncyCastleCryptoSslStreamLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="SSharpCrestronExtensionsLibrary, Version=1.0.0.28724, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\OneDrive - University of Toronto\Documents\Crestron\oznetmaster\DLLs\SSharpCrestronExtensionsLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="SSharpCrestronIOExtensionsLibrary, Version=1.0.0.29289, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\OneDrive - University of Toronto\Documents\Crestron\oznetmaster\DLLs\SSharpCrestronIOExtensionsLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="SSharpDateTimeLibrary, Version=1.0.0.29254, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\OneDrive - University of Toronto\Documents\Crestron\oznetmaster\DLLs\SSharpDateTimeLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="SSharpReflectionExtensionsLibrary, Version=1.0.0.31196, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\OneDrive - University of Toronto\Documents\Crestron\oznetmaster\DLLs\SSharpReflectionExtensionsLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="SSharpReflectionTypeInfoLibrary, Version=1.0.0.29240, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\OneDrive - University of Toronto\Documents\Crestron\oznetmaster\DLLs\SSharpReflectionTypeInfoLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="SSharpRestSharpLibrary, Version=1.0.0.30262, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\OneDrive - University of Toronto\Documents\Crestron\oznetmaster\DLLs\SSharpRestSharpLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="SSharpThreadingLibrary, Version=1.0.0.29205, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\OneDrive - University of Toronto\Documents\Crestron\oznetmaster\DLLs\SSharpThreadingLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="SSMonoBouncyNetWebLibrary, Version=1.0.0.30244, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\OneDrive - University of Toronto\Documents\Crestron\oznetmaster\DLLs\SSMonoBouncyNetWebLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="SSMonoCollectionsLibrary, Version=1.0.0.29189, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\OneDrive - University of Toronto\Documents\Crestron\oznetmaster\DLLs\SSMonoCollectionsLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="SSMonoComponentModelLibrary, Version=1.0.0.29194, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\OneDrive - University of Toronto\Documents\Crestron\oznetmaster\DLLs\SSMonoComponentModelLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="SSMonoConcurrentCollectionsLibrary, Version=1.0.0.29217, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\OneDrive - University of Toronto\Documents\Crestron\oznetmaster\DLLs\SSMonoConcurrentCollectionsLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="SSMonoCryptographyLibrary, Version=1.0.0.29325, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\OneDrive - University of Toronto\Documents\Crestron\oznetmaster\DLLs\SSMonoCryptographyLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="SSMonoIOLibrary, Version=1.0.0.29201, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\OneDrive - University of Toronto\Documents\Crestron\oznetmaster\DLLs\SSMonoIOLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="SSMonoNetLibrary, Version=1.0.0.29410, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\OneDrive - University of Toronto\Documents\Crestron\oznetmaster\DLLs\SSMonoNetLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="SSMonoSupportLibrary, Version=1.0.0.29174, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\OneDrive - University of Toronto\Documents\Crestron\oznetmaster\DLLs\SSMonoSupportLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="SSMonoThreadingLibrary, Version=1.0.0.17909, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\OneDrive - University of Toronto\Documents\Crestron\oznetmaster\DLLs\SSMonoThreadingLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="SSMonoThreadPoolLibrary, Version=1.0.0.29211, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\OneDrive - University of Toronto\Documents\Crestron\oznetmaster\DLLs\SSMonoThreadPoolLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="SSMonoWebLibrary, Version=1.0.0.29538, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\OneDrive - University of Toronto\Documents\Crestron\oznetmaster\DLLs\SSMonoWebLibrary.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Account.cs" />
-    <Compile Include="AccountProvider.cs" />
-    <Compile Include="BooleanJsonConverter.cs" />
-    <Compile Include="Drupal7RestClient.cs" />
-    <Compile Include="Drupal8RestClient.cs" />
-    <Compile Include="DrupalRestClient.3series.cs" />
-    <Compile Include="DrupalRestClientParsers.cs" />
-    <Compile Include="IDanielsAccount.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TrainingRecord.cs" />
+    <Compile Include="ConfigManagement.cs" />
+    <Compile Include="Newtonsoft.Json.Linq\JsonMergeSettings.cs" />
+    <Compile Include="Newtonsoft.Json.Linq\LineInfoHandling.cs" />
+    <Compile Include="Newtonsoft.Json.Linq\MergeArrayHandling.cs" />
+    <Compile Include="Newtonsoft.Json.Linq\MergeImplementation.cs" />
+    <Compile Include="Newtonsoft.Json.Linq\MergeNullValueHandling.cs" />
+    <Content Include="ConfigManagementLibrary.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Properties\ControlSystem.cfg" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />

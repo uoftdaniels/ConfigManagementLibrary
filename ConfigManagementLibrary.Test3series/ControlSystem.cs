@@ -5,7 +5,9 @@ using Crestron.SimplSharpPro.CrestronThread;        	// For Threading
 using Crestron.SimplSharpPro.Diagnostics;		    	// For System Monitor Access
 using Crestron.SimplSharpPro.DeviceSupport;         	// For Generic Device Support
 
-namespace DanielsAccountsLibrary.Test3series
+using Daniels.Config;
+
+namespace Daniels.Config.Test
 {
     public class ControlSystem : CrestronControlSystem
     {
@@ -34,7 +36,8 @@ namespace DanielsAccountsLibrary.Test3series
                 CrestronEnvironment.ProgramStatusEventHandler += new ProgramStatusEventHandler(ControlSystem_ControllerProgramEventHandler);
                 CrestronEnvironment.EthernetEventHandler += new EthernetEventHandler(ControlSystem_ControllerEthernetEventHandler);
 
-                CrestronConsole.AddNewConsoleCommand(ConsoleCommandAccount, "danielsaccount", "retrive daniels account", ConsoleAccessLevelEnum.AccessOperator);
+                CrestronConsole.AddNewConsoleCommand(ConsoleCommandConfigPath, "configtestpath", "test ConfigManagementLibrary path handling", ConsoleAccessLevelEnum.AccessOperator);
+                CrestronConsole.AddNewConsoleCommand(ConsoleCommandConfigLoad, "configtestload", "test ConfigManagementLibrary load merged object handling", ConsoleAccessLevelEnum.AccessOperator);
             }
             catch (Exception e)
             {
@@ -147,16 +150,27 @@ namespace DanielsAccountsLibrary.Test3series
             }
 
         }
+
         /// <summary>
         /// Test Console functions.
         /// </summary>
         /// <param name="cmd">command name</param>
-        private void ConsoleCommandAccount(string cmd)
+        private void ConsoleCommandConfigPath(string cmd)
         {
-            Daniels.Accounts.AccountProvider provider = new Daniels.Accounts.AccountProvider();
-            Daniels.Accounts.Account account = provider.GetAccount(cmd);
+            ConfigManagement.InitializeLibraryDefaults();
+            CrestronConsole.ConsoleCommandResponse("Config pattern: {0}", ConfigManagement.DefaultConfig.DefaultConfigFileNamePattern);
+            ConfigManagement.LookupConfig("testConfig", null, InitialParametersClass.ApplicationNumber);
+        }
 
-            CrestronConsole.ConsoleCommandResponse("DanielsAccount: {0}", account);
+        /// <summary>
+        /// Test Console functions.
+        /// </summary>
+        /// <param name="cmd">command name</param>
+        private void ConsoleCommandConfigLoad(string cmd)
+        {
+            ConfigManagement.InitializeLibraryDefaults();
+            TestConfig testConfig = ConfigManagement.LoadMergedJsonConfig<TestConfig>("testConfig", null, 0x01);
+            CrestronConsole.ConsoleCommandResponse("Loaded config: \r\n{0}", testConfig);
 
         }
     }

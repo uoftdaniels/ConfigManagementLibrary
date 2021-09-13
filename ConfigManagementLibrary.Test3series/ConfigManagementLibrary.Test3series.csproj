@@ -4,11 +4,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{DED7B127-C7A7-48E6-A7B2-8085C0625996}</ProjectGuid>
+    <ProjectGuid>{1B9FAF07-B57E-4DAF-BE99-2993ACFDF303}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DanielsAccountsLibrary.Test3series</RootNamespace>
-    <AssemblyName>DanielsAccountsLibrary.Test3series</AssemblyName>
+    <RootNamespace>Daniels.Config.Test</RootNamespace>
+    <AssemblyName>ConfigManagementLibrary.Test3series</AssemblyName>
     <ProjectTypeGuids>{0B4745B0-194B-4BB6-8E21-E9057CA92230};{4D628B5B-2FBC-4AA6-8C16-197242AEB884};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <PlatformFamilyName>WindowsCE</PlatformFamilyName>
     <PlatformID>E2BECB1F-8C8C-41ba-B736-9BE7D946A398</PlatformID>
@@ -71,12 +71,19 @@
   <ItemGroup>
     <Compile Include="ControlSystem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestConfig.cs" />
     <None Include="Properties\ControlSystem.cfg" />
+    <Content Include="testConfig-P01.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="testConfig.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DanielsAccountsLibrary\DanielsAccountsLibrary.3series.csproj">
-      <Project>{5EAC9D2D-612C-49D2-9D45-A581410367D9}</Project>
-      <Name>DanielsAccountsLibrary.3series</Name>
+    <ProjectReference Include="..\ConfigManagementLibrary\ConfigManagementLibrary.3series.csproj">
+      <Project>{EF262098-B944-4DF3-BE6C-F3FC384F7849}</Project>
+      <Name>ConfigManagementLibrary.3series</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />

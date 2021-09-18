@@ -1,9 +1,11 @@
 using System;
+using System.Text;
 using Crestron.SimplSharp;                          	// For Basic SIMPL# Classes
 using Crestron.SimplSharpPro;                       	// For Basic SIMPL#Pro classes
 using Crestron.SimplSharpPro.CrestronThread;        	// For Threading
 using Crestron.SimplSharpPro.Diagnostics;		    	// For System Monitor Access
 using Crestron.SimplSharpPro.DeviceSupport;         	// For Generic Device Support
+using Crestron.SimplSharp.Reflection;
 
 using Daniels.Config;
 
@@ -36,8 +38,10 @@ namespace Daniels.Config.Test
                 CrestronEnvironment.ProgramStatusEventHandler += new ProgramStatusEventHandler(ControlSystem_ControllerProgramEventHandler);
                 CrestronEnvironment.EthernetEventHandler += new EthernetEventHandler(ControlSystem_ControllerEthernetEventHandler);
 
+                CrestronConsole.AddNewConsoleCommand(ConsoleCommandConfigInit, "configtestinit", "test ConfigManagementLibrary init handling", ConsoleAccessLevelEnum.AccessOperator);
                 CrestronConsole.AddNewConsoleCommand(ConsoleCommandConfigPath, "configtestpath", "test ConfigManagementLibrary path handling", ConsoleAccessLevelEnum.AccessOperator);
                 CrestronConsole.AddNewConsoleCommand(ConsoleCommandConfigLoad, "configtestload", "test ConfigManagementLibrary load merged object handling", ConsoleAccessLevelEnum.AccessOperator);
+                CrestronConsole.AddNewConsoleCommand(ConsoleCommandTest, "test", "test", ConsoleAccessLevelEnum.AccessOperator);
             }
             catch (Exception e)
             {
@@ -155,11 +159,47 @@ namespace Daniels.Config.Test
         /// Test Console functions.
         /// </summary>
         /// <param name="cmd">command name</param>
+        private void ConsoleCommandConfigInit(string cmd)
+        {
+            StringBuilder sb = new StringBuilder();
+            try
+            {
+                CrestronConsole.PrintLine("Config Pre:{0}", ConfigManagement.DefaultConfig);
+                ConfigManagement.InitializeLibraryDefaults();
+                CrestronConsole.PrintLine("Config Post:{0}", ConfigManagement.DefaultConfig);
+                CrestronConsole.ConsoleCommandResponse("Config pattern: {0}", ConfigManagement.DefaultConfig.DefaultConfigFileNamePattern);
+            }
+            catch (Exception e)
+            {
+                CrestronConsole.ConsoleCommandResponse("Error: {0}\r\n{1}", e.Message, e.StackTrace);
+            }
+        }
+
+        /// <summary>
+        /// Test Console functions.
+        /// </summary>
+        /// <param name="cmd">command name</param>
         private void ConsoleCommandConfigPath(string cmd)
         {
-            ConfigManagement.InitializeLibraryDefaults();
-            CrestronConsole.ConsoleCommandResponse("Config pattern: {0}", ConfigManagement.DefaultConfig.DefaultConfigFileNamePattern);
-            ConfigManagement.LookupConfig("testConfig", null, InitialParametersClass.ApplicationNumber);
+            StringBuilder sb = new StringBuilder();
+            try
+            {
+                sb.AppendFormat("Config:");
+                sb.AppendLine();
+                sb.Append(ConfigManagement.DefaultConfig);
+                sb.AppendLine();
+                string[] lookupPath = ConfigManagement.LookUpConfigs("testConfig", null, InitialParametersClass.ApplicationNumber);
+                foreach (string folder in lookupPath)
+                {
+                    sb.AppendFormat("\t{0}", folder);
+                    sb.AppendLine();
+                }
+                CrestronConsole.ConsoleCommandResponse("LookupFiles: \r\n{0}", sb.ToString());
+            }
+            catch (Exception e)
+            {
+                CrestronConsole.ConsoleCommandResponse("Error: {0}\r\n{1}\r\nAccumulated output\r\n{2}", e.Message, e.StackTrace, sb.ToString());
+            }
         }
 
         /// <summary>
@@ -168,10 +208,43 @@ namespace Daniels.Config.Test
         /// <param name="cmd">command name</param>
         private void ConsoleCommandConfigLoad(string cmd)
         {
-            ConfigManagement.InitializeLibraryDefaults();
-            TestConfig testConfig = ConfigManagement.LoadMergedJsonConfig<TestConfig>("testConfig", null, 0x01);
-            CrestronConsole.ConsoleCommandResponse("Loaded config: \r\n{0}", testConfig);
+            try
+            {
+                TestConfig testConfig = ConfigManagement.LoadMergedJsonConfig<TestConfig>("testConfig", null, 0x01);
+                CrestronConsole.ConsoleCommandResponse("Loaded config: \r\n{0}", testConfig);
+            }
+            catch (Exception e)
+            {
+                CrestronConsole.ConsoleCommandResponse("Error: {0}\r\n{1}", e.Message, e.StackTrace);
+            }
+        }
 
+        /// <summary>
+        /// Test Console functions.
+        /// </summary>
+        /// <param name="cmd">command name</param>
+        private void ConsoleCommandTest(string cmd)
+        {
+            try
+            {
+                CrestronConsole.PrintLine("Line:{0}", 1);
+                Assembly a = Assembly.GetExecutingAssembly();
+                CrestronConsole.PrintLine("Line:{0}", 2);
+                AssemblyName assemblyName = a.GetName();
+                CrestronConsole.PrintLine("Line:{0}", 3);
+                string codeBase = assemblyName.CodeBase;
+                CrestronConsole.PrintLine("Line:{0}", 4);
+                Uri uri = new Uri(codeBase);
+                CrestronConsole.PrintLine("Line:{0}", 5);
+                string path = Uri.UnescapeDataString(uri.LocalPath);
+                CrestronConsole.PrintLine("Line:{0}", 6);
+                CrestronConsole.PrintLine("path:{0}", path);
+                CrestronConsole.PrintLine("program:{0}", InitialParametersClass.ProgramDirectory.ToString());
+            }
+            catch (Exception e)
+            {
+                CrestronConsole.ConsoleCommandResponse("Error: {0}\r\n{1}", e.Message, e.StackTrace);
+            }
         }
     }
 }

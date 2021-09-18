@@ -1,13 +1,15 @@
 ﻿using System;
+using System.Text;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 #if SSHARP
 using Crestron.SimplSharp.CrestronIO;
 using Crestron.SimplSharp.Reflection;
+using Crestron.SimplSharp;
 #else
 using System.IO;
 using System.Reflection;
-using System.Runtime.Remoting.Messaging;
 #endif
 
 using Newtonsoft.Json;
@@ -19,16 +21,69 @@ namespace Daniels.Config
     {
         public class Config
         {
+            [JsonIgnore]
+            private Dictionary<string, string> _defaultLookUpFoldersStorage;
+
             [JsonProperty("DefaultLookUpFolders")]
-            internal readonly Dictionary<string, string> _defaultLookUpFolders = new Dictionary<string, string>() {
-                { "current", @"." },
-                { "executing", @"" },
-                { "rm", @"\rm" },
-                { "nvram", @"\nvram" }
-            };
+            internal Dictionary<string, string> DefaultLookUpFoldersStorage
+            {
+                private get { return _defaultLookUpFoldersStorage; }
+                set
+                {
+                    _defaultLookUpFoldersStorage = value;
+                    _defaultLookUpFolders = new ReadOnlyDictionary<string, string>(_defaultLookUpFoldersStorage);
+                    _lookUpFolders = null;
+                }
+            }
 
             [JsonIgnore]
-            public string[] DefaultLookUpFolders { get { string[] folders = new string[_defaultLookUpFolders.Count]; _defaultLookUpFolders.Values.CopyTo(folders, 0); return folders; } }
+            private ReadOnlyDictionary<string, string> _defaultLookUpFolders;
+            [JsonIgnore]
+            public ReadOnlyDictionary<string, string> DefaultLookUpFolders { get { return _defaultLookUpFolders; } }
+
+            [JsonIgnore]
+            private string[] _lookUpFolders = null;
+            [JsonIgnore]
+            internal string[] LookUpFolders
+            {
+                get
+                {
+                    if (_lookUpFolders == null)
+                    {
+                        string[] folders = new string[_defaultLookUpFoldersStorage.Count];
+                        //_defaultLookUpFoldersStorage.Values.CopyTo(folders, 0);
+
+                        int i = 0;
+                        foreach (var kv in _defaultLookUpFoldersStorage)
+                        //for (int i = 0; i < folders.Length; i++)
+                        {
+                            switch (kv.Key)
+                            {
+                                case "<program>":
+#if SSHARP
+                                    folders[i] = InitialParametersClass.ProgramDirectory.ToString();
+#else
+                                    folders[i] = AppDomain.CurrentDomain.BaseDirectory;
+#endif
+                                    break;
+                                case "<library>":
+                                    string codeBase = Assembly.GetExecutingAssembly().GetName().CodeBase;
+                                    Uri uri = new Uri(codeBase);
+                                    string path = Uri.UnescapeDataString(uri.LocalPath);
+                                    folders[i] = Path.GetDirectoryName(Uri.UnescapeDataString(uri.LocalPath));
+                                    break;
+                                default:
+                                    folders[i] = kv.Value;
+                                    break;
+                            }
+                            i++;
+                        }
+
+                        _lookUpFolders = folders;
+                    }
+                    return _lookUpFolders;
+                }
+            }
 
             [JsonProperty("DefaultConfigFileNamePattern")]
             private string _defaultConfigFileNamePattern = @"{0}-P{1:D2}";
@@ -36,26 +91,42 @@ namespace Daniels.Config
             public string DefaultConfigFileNamePattern { get { return _defaultConfigFileNamePattern; } private set { _defaultConfigFileNamePattern = value; } }
 
             [JsonProperty("DefaultConfigFileExtension")]
-            private string _efaultConfigFileExtension = @".json";
+            private string _defaultConfigFileExtension = @".json";
             [JsonIgnore]
-            public string DefaultConfigFileExtension { get { return _efaultConfigFileExtension; } private set { _efaultConfigFileExtension = value; } }
+            public string DefaultConfigFileExtension { get { return _defaultConfigFileExtension; } private set { _defaultConfigFileExtension = value; } }
 
             public Config()
             {
-                List<string> folderKeys = new List<string>(_defaultLookUpFolders.Keys);
-                foreach (string folderKey in folderKeys)
+                DefaultLookUpFoldersStorage = new Dictionary<string, string>() {
+                    { "current", @"." },
+                    { "<program>", null },
+                    //{ "<library>", @"" },
+                    { "rm", @"\rm" },
+                    { "nvram", @"\nvram" }
+                };
+            }
+
+            public override string ToString()
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append("LookUpFolders:");
+                sb.AppendLine();
+                foreach (var kv in _defaultLookUpFolders)
                 {
-                    switch (folderKey)
-                    {
-                        case "executing":
-#if SSHARP
-                            _defaultLookUpFolders[folderKey] = Path.GetDirectoryName(new Uri(Assembly.GetCallingAssembly().GetName().CodeBase).LocalPath);
-#else
-                            _defaultLookUpFolders[folderKey] = AppDomain.CurrentDomain.BaseDirectory;
-#endif
-                            break;
-                    }
+                    sb.AppendFormat("\t{0}:\t{1}", kv.Key, kv.Value);
+                    sb.AppendLine();
                 }
+                sb.Append("CompiledLookUpFolders:");
+                sb.AppendLine();
+                foreach (string folder in LookUpFolders)
+                {
+                    sb.AppendFormat("\t{0}", folder);
+                    sb.AppendLine();
+                }
+                sb.AppendFormat("DefaultConfigFileNamePattern: {0}", DefaultConfigFileNamePattern);
+                sb.AppendLine();
+                sb.AppendFormat("DefaultConfigFileExtension: {0}", DefaultConfigFileExtension);
+                return sb.ToString();
             }
         }
 
@@ -79,7 +150,7 @@ namespace Daniels.Config
             }
         }
 
-        public static string LookupConfig(string configName, string[] lookupFolders, uint? appId)
+        public static string LookUpConfig(string configName, string[] lookupFolders, uint? appId)
         {
             string[] lookUpFileNames = MakeLookupFileNames(configName, appId);
 
@@ -138,8 +209,10 @@ namespace Daniels.Config
             }
             else
                 foreach (string lookUpFileNameInFolder in MakeLookupFileNamesInFolders(lookUpFileNames, lookupFolders, appId))
+                {
                     if (File.Exists(lookUpFileNameInFolder))
                         configFiles.Add(lookUpFileNameInFolder);
+                }
 
             return configFiles.ToArray();
         }
@@ -175,7 +248,7 @@ namespace Daniels.Config
         internal static string[] MakeLookupFileNamesInFolders(string[] lookUpFileNames, string[] lookupFolders, uint? appid)
         {
             if (lookupFolders == null)
-                lookupFolders = DefaultConfig.DefaultLookUpFolders;
+                lookupFolders = DefaultConfig.LookUpFolders;
 
             List<string> fileNames = new List<string>(lookUpFileNames.Length * lookupFolders.Length);
             foreach(string lookUpFileName in lookUpFileNames)

@@ -123,7 +123,7 @@ namespace Daniels.Config
                     JContainer existingContainer = existingProperty.Value as JContainer;
                     if (!(existingContainer != null) || existingContainer.Type != contentItem.Value.Type)
                     {
-                        if (!IsNull(contentItem.Value) || (settings!=null)? settings.MergeNullValueHandling == MergeNullValueHandling.Merge : false)
+                        if (!IsNull(contentItem.Value) || ((settings != null) ? (settings.MergeNullValueHandling == MergeNullValueHandling.Merge) : false))
                             existingProperty.Value = contentItem.Value;
                     }
                     else

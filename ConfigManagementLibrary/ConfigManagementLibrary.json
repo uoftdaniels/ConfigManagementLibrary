@@ -1,6 +1,7 @@
 ﻿{
   "DefaultLookUpFolders": {
     "current": ".",
+    "<program>": "",
     "rm": "\\rm",
     "nvram": "\\nvram"
   },

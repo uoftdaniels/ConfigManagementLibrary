@@ -2,8 +2,8 @@
   "DefaultLookUpFolders": {
     "current": ".",
     "<program>": "",
-    "rm": "\\rm",
-    "nvram": "\\nvram"
+    "rm": "\rm",
+    "nvram": "\nvram"
   },
   "DefaultConfigFileNamePattern": "{0}-P{1:D2}",
   "DefaultConfigFileExtension": ".json"

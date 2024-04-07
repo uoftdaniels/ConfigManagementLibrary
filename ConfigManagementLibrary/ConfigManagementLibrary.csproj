@@ -32,10 +32,7 @@
   </ItemGroup>	
 	
   <ItemGroup>
-    <Compile Remove="ConfigManagementLibrary.3series.cs" />
-  </ItemGroup>	
-	
-  <ItemGroup>
+    <None Remove="ConfigManagementLibrary.3series.csproj" />
     <None Remove="ConfigManagementLibrary.3series.csproj_pro" />
     <None Remove="ConfigManagementLibrary.3series.projectinfo" />
     <None Remove="ConfigManagementLibrary.json" />
@@ -46,10 +43,6 @@
     <Content Include="ConfigManagementLibrary.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>	
-	
-  <ItemGroup>
-    <None Include="ConfigManagementLibrary.3series.cs" />
   </ItemGroup>	
 	
   <ItemGroup>

@@ -35,15 +35,14 @@
     <None Remove="ConfigManagementLibrary.3series.csproj" />
     <None Remove="ConfigManagementLibrary.3series.csproj_pro" />
     <None Remove="ConfigManagementLibrary.3series.projectinfo" />
-    <None Remove="ConfigManagementLibrary.json" />
     <None Remove="ConfigManagementLibrary.projectinfo" />
   </ItemGroup>	
 	
-  <ItemGroup>
+  <!-- <ItemGroup>
     <Content Include="ConfigManagementLibrary.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>	
+  </ItemGroup>	 -->
 	
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />

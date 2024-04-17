@@ -101,8 +101,8 @@ namespace Daniels.Config
                     { "current", @"." },
                     { "<program>", null },
                     //{ "<library>", @"" },
-                    { "rm", @"\rm" },
-                    { "nvram", @"\nvram" }
+                    { "rm", Path.DirectorySeparatorChar + @"rm" },
+                    { "nvram", Path.DirectorySeparatorChar + @"nvram" }
                 };
             }
 
@@ -214,6 +214,8 @@ namespace Daniels.Config
                         configFiles.Add(lookUpFileNameInFolder);
                 }
 
+            if(configFiles.Count == 0)
+                throw new FileNotFoundException();
             return configFiles.ToArray();
         }
 
